@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         
         self.setupView()
         self.setupConstraints()
-        self.setupInnerView()
+//        self.setupInnerView()
         
     }
     
@@ -41,8 +41,8 @@ class ViewController: UIViewController {
         self.vortextView.frame.size = .init(width: 50.0, height: 50.0)
         self.vortextView.layer.cornerRadius = 25.0
         self.vortextView.clipsToBounds = true
-        self.circleView.backgroundColor = UIColor(red: 57.0/255.0, green: 37.0/255.0, blue: 241.0/255.0, alpha: 1.0)
-        self.circleView.layer.cornerRadius = 30.0
+//        self.circleView.backgroundColor = UIColor(red: 57.0/255.0, green: 37.0/255.0, blue: 241.0/255.0, alpha: 1.0)
+        self.circleView.layer.cornerRadius = 10.0
     }
     
     func settingsWashingMachine () {
@@ -56,12 +56,20 @@ class ViewController: UIViewController {
         self.setupBehaviours()
         
         self.perform(#selector(self.changeVortexStrengh), with: nil, afterDelay: 6.0)
+        self.perform(#selector(self.changeImage), with: nil, afterDelay: 15.0)
         print("this message after perform")
     }
     
     @objc func changeVortexStrengh() {
         print("we changed strength")
-        self.vortextBehaviour.strength = 10
+        self.vortextBehaviour.strength = 0.5
+    }
+    
+    @objc func changeImage() {
+        print("change image was call")
+        self.circleView.image = .init(named: "Ellipse2")
+        print("and vortex behaviour to zero")
+        self.vortextBehaviour.strength = 0.0
     }
     
     func setupBehaviours() {
@@ -77,11 +85,11 @@ class ViewController: UIViewController {
         
         self.vortextBehaviour.position = self.vortextView.center
         self.vortextBehaviour.animationSpeed = 0.09
-        self.vortextBehaviour.strength = 0.09
+        self.vortextBehaviour.strength = 0.05
         self.vortextBehaviour.region = .init(radius: 200)
         
         self.vortextBehaviour.addItem(self.circleView)
-        self.itemBehaviour.elasticity = 1
+//        self.itemBehaviour.elasticity = 1
         
         self.dynamicAnimator.addBehavior(self.vortextBehaviour)
         self.dynamicAnimator.addBehavior(self.itemBehaviour)
@@ -90,7 +98,7 @@ class ViewController: UIViewController {
     }
     
     func setupInnerView() {
-        self.circleView.frame.size = .init(width: 60.0, height: 60.0)
+        self.circleView.frame.size = .init(width: 20.0, height: 20.0)
     }
     
     func setupConstraints() {
@@ -103,15 +111,16 @@ class ViewController: UIViewController {
     }
     
     func addBlur() {
-        let blur = UIBlurEffect(style: .dark)
-        let blurEffectView = UIVisualEffectView(effect: blur)
-        blurEffectView.frame = self.circleView.bounds
-        blurEffectView.alpha = 1
-        blurEffectView.layer.opacity = 0.5
-        blurEffectView.layer.cornerRadius = 30.0
-        blurEffectView.clipsToBounds = true
-        self.circleView.addSubview(blurEffectView)
-        self.circleView.layer.shadowRadius = 10.0
+//        let blur = UIBlurEffect(style: .dark)
+//        let blurEffectView = UIVisualEffectView(effect: blur)
+//        blurEffectView.frame = self.circleView.bounds
+//        blurEffectView.alpha = 1
+//        blurEffectView.layer.opacity = 0.5
+//        blurEffectView.layer.cornerRadius = 30.0
+//        blurEffectView.clipsToBounds = true
+//        self.circleView.addSubview(blurEffectView)
+//        self.circleView.layer.shadowRadius = 10.0
+        
     }
 }
 
@@ -132,12 +141,24 @@ extension ViewController {
     
     func makeImageView() -> UIImageView {
         let imageView = UIImageView()
-        imageView.backgroundColor = UIColor(red: 57.0/255.0, green: 37.0/255.0, blue: 241.0/255.0, alpha: 1.0)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.shadowRadius = 10.0
-        imageView.layer.shadowOpacity = 1
-        imageView.layer.shadowColor = UIColor(red: 57.0/255.0, green: 37.0/255.0, blue: 241.0/255.0, alpha: 1.0).cgColor
-        imageView.layer.masksToBounds = false
+        let ciContext = CIContext(options: nil)
+//        imageView.backgroundColor = UIColor(red: 57.0/255.0, green: 37.0/255.0, blue: 241.0/255.0, alpha: 1.0)
+//        imageView.translatesAutoresizingMaskIntoConstraints = false
+//        imageView.layer.shadowRadius = 10.0
+//        imageView.layer.shadowOpacity = 1
+//        imageView.layer.shadowColor = UIColor(red: 57.0/255.0, green: 37.0/255.0, blue: 241.0/255.0, alpha: 1.0).cgColor
+//        imageView.layer.masksToBounds = false
+        imageView.image = .init(named: "Ellipse2")
+        imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 20.0
+        imageView.frame.size = .init(width: 40.0, height: 40.0)
+        let currentFilter = CIFilter(name: "CIGaussianBlur")
+        let image = CIImage(image: imageView.image!)
+        currentFilter!.setValue(image, forKey: kCIInputImageKey)
+        currentFilter!.setValue(20.0, forKey: kCIInputRadiusKey)
+        guard let filteredImage = currentFilter?.outputImage else { return .init() }
+        let outputImage = ciContext.createCGImage(filteredImage, from: filteredImage.extent)
+        imageView.image = .init(cgImage: outputImage!)
         return imageView
     }
 }
