@@ -17,6 +17,8 @@
 		E45E13FE291A912D0005DB3D /* washing_machineUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45E13FD291A912D0005DB3D /* washing_machineUITests.swift */; };
 		E45E1400291A912D0005DB3D /* washing_machineUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45E13FF291A912D0005DB3D /* washing_machineUITestsLaunchTests.swift */; };
 		E45E140E291AA3E20005DB3D /* TemperatureSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45E140D291AA3E20005DB3D /* TemperatureSettingsViewController.swift */; };
+		E47869682966B913007018FF /* MainScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47869672966B913007018FF /* MainScreenViewModel.swift */; };
+		E478696C29672A23007018FF /* WashingMachineContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E478696B29672A23007018FF /* WashingMachineContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		E45E13FD291A912D0005DB3D /* washing_machineUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = washing_machineUITests.swift; sourceTree = "<group>"; };
 		E45E13FF291A912D0005DB3D /* washing_machineUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = washing_machineUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E45E140D291AA3E20005DB3D /* TemperatureSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureSettingsViewController.swift; sourceTree = "<group>"; };
+		E47869672966B913007018FF /* MainScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewModel.swift; sourceTree = "<group>"; };
+		E478696B29672A23007018FF /* WashingMachineContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WashingMachineContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,10 +105,10 @@
 		E45E13DB291A912C0005DB3D /* washing_machine */ = {
 			isa = PBXGroup;
 			children = (
+				E47869662966B8F6007018FF /* mainScreen */,
 				E45E140C291AA3B40005DB3D /* temperatureSettings */,
 				E45E13DC291A912C0005DB3D /* AppDelegate.swift */,
 				E45E13DE291A912C0005DB3D /* SceneDelegate.swift */,
-				E45E13E0291A912C0005DB3D /* ViewController.swift */,
 				E45E13E2291A912C0005DB3D /* Main.storyboard */,
 				E45E13E5291A912D0005DB3D /* Assets.xcassets */,
 				E45E13E7291A912D0005DB3D /* LaunchScreen.storyboard */,
@@ -136,6 +140,32 @@
 				E45E140D291AA3E20005DB3D /* TemperatureSettingsViewController.swift */,
 			);
 			path = temperatureSettings;
+			sourceTree = "<group>";
+		};
+		E47869662966B8F6007018FF /* mainScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E478696A296729F5007018FF /* Views */,
+				E4786969296729E6007018FF /* ViewModel */,
+			);
+			path = mainScreen;
+			sourceTree = "<group>";
+		};
+		E4786969296729E6007018FF /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				E47869672966B913007018FF /* MainScreenViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		E478696A296729F5007018FF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E45E13E0291A912C0005DB3D /* ViewController.swift */,
+				E478696B29672A23007018FF /* WashingMachineContentView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -270,8 +300,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E45E140E291AA3E20005DB3D /* TemperatureSettingsViewController.swift in Sources */,
+				E47869682966B913007018FF /* MainScreenViewModel.swift in Sources */,
 				E45E13E1291A912C0005DB3D /* ViewController.swift in Sources */,
 				E45E13DD291A912C0005DB3D /* AppDelegate.swift in Sources */,
+				E478696C29672A23007018FF /* WashingMachineContentView.swift in Sources */,
 				E45E13DF291A912C0005DB3D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

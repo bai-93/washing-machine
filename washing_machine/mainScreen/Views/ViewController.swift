@@ -4,17 +4,17 @@
 //
 //  Created by baiaman apsamatov on 8/11/22.
 //
-// Colors of balls in washing machine cyan(111.0/255.0 227.0/255.0/ 226/255.0) blue(57.0/255.0 37.0/255.0 241.0/255.0) orange(234.0/255.0 120.0/255.0 58.0/255.0) pink(231.0/255.0 82.0/255.0 189.0/255.0)
 
 import UIKit
 import CoreImage
-import CoreImage.CIFilterBuiltins
 
 class ViewController: UIViewController {
+    var viewModel: MainScreenViewModel = MainScreenViewModel()
     lazy var timeContainer: UIView = self.makeContainer()
     lazy var washingMachineView: UIView = self.makeContainer()
     lazy var circleView: UIImageView = self.makeImageView()
     lazy var vortextView: UIView = self.makeVortextView()
+    lazy var contenView: WashingMachineContentView = self.makeWachingMachineContentView()
     
     var dynamicAnimator: UIDynamicAnimator = UIDynamicAnimator()
     var collisionBehaviour: UICollisionBehavior = UICollisionBehavior()
@@ -26,10 +26,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(red: 33.0/255.0, green: 35.0/255.0, blue: 41.0/255.0, alpha: 1.0)
         
-        self.setupView()
-        self.setupConstraints()
-//        self.setupInnerView()
+//        self.setupView()
+//        self.setupConstraints()
+//        self.viewModel.delegate = self
         
+        self.view.addSubview(self.contenView)
+        
+        self.setupConstraints()
     }
     
     func setupView() {
@@ -45,19 +48,14 @@ class ViewController: UIViewController {
         self.circleView.layer.cornerRadius = 10.0
     }
     
-    func settingsWashingMachine () {
-        
-    }
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.vortextView.center = .init(x: self.washingMachineView.bounds.midX, y: self.washingMachineView.bounds.midY)
-        self.addBlur()
-        self.setupBehaviours()
-        
-        self.perform(#selector(self.changeVortexStrengh), with: nil, afterDelay: 6.0)
-        self.perform(#selector(self.changeImage), with: nil, afterDelay: 15.0)
-        print("this message after perform")
+//        self.vortextView.center = .init(x: self.washingMachineView.bounds.midX, y: self.washingMachineView.bounds.midY)
+//        self.setupBehaviours()
+//
+//        self.perform(#selector(self.changeVortexStrengh), with: nil, afterDelay: 6.0)
+//        self.perform(#selector(self.changeImage), with: nil, afterDelay: 15.0)
+//        print("this message after perform")
     }
     
     @objc func changeVortexStrengh() {
@@ -67,6 +65,7 @@ class ViewController: UIViewController {
     
     @objc func changeImage() {
         print("change image was call")
+        self.circleView.frame.size = .init(width: 35.0, height: 35.0)
         self.circleView.image = .init(named: "Ellipse2")
         print("and vortex behaviour to zero")
         self.vortextBehaviour.strength = 0.0
@@ -89,38 +88,26 @@ class ViewController: UIViewController {
         self.vortextBehaviour.region = .init(radius: 200)
         
         self.vortextBehaviour.addItem(self.circleView)
-//        self.itemBehaviour.elasticity = 1
-        
         self.dynamicAnimator.addBehavior(self.vortextBehaviour)
         self.dynamicAnimator.addBehavior(self.itemBehaviour)
         self.dynamicAnimator.addBehavior(self.collisionBehaviour)
         self.dynamicAnimator.addBehavior(self.gravityBehaviour)
     }
     
-    func setupInnerView() {
-        self.circleView.frame.size = .init(width: 20.0, height: 20.0)
-    }
-    
     func setupConstraints() {
-        NSLayoutConstraint.activate([
-            self.washingMachineView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-            self.washingMachineView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            self.washingMachineView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1.0),
-            self.washingMachineView.heightAnchor.constraint(equalTo: self.washingMachineView.widthAnchor)
-        ])
-    }
-    
-    func addBlur() {
-//        let blur = UIBlurEffect(style: .dark)
-//        let blurEffectView = UIVisualEffectView(effect: blur)
-//        blurEffectView.frame = self.circleView.bounds
-//        blurEffectView.alpha = 1
-//        blurEffectView.layer.opacity = 0.5
-//        blurEffectView.layer.cornerRadius = 30.0
-//        blurEffectView.clipsToBounds = true
-//        self.circleView.addSubview(blurEffectView)
-//        self.circleView.layer.shadowRadius = 10.0
+//        NSLayoutConstraint.activate([
+//            self.washingMachineView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+//            self.washingMachineView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+//            self.washingMachineView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1.0),
+//            self.washingMachineView.heightAnchor.constraint(equalTo: self.washingMachineView.widthAnchor)
+//        ])
         
+        NSLayoutConstraint.activate([
+            self.contenView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.contenView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.contenView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            self.contenView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+        ])
     }
 }
 
@@ -142,12 +129,6 @@ extension ViewController {
     func makeImageView() -> UIImageView {
         let imageView = UIImageView()
         let ciContext = CIContext(options: nil)
-//        imageView.backgroundColor = UIColor(red: 57.0/255.0, green: 37.0/255.0, blue: 241.0/255.0, alpha: 1.0)
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.layer.shadowRadius = 10.0
-//        imageView.layer.shadowOpacity = 1
-//        imageView.layer.shadowColor = UIColor(red: 57.0/255.0, green: 37.0/255.0, blue: 241.0/255.0, alpha: 1.0).cgColor
-//        imageView.layer.masksToBounds = false
         imageView.image = .init(named: "Ellipse2")
         imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 20.0
@@ -155,10 +136,34 @@ extension ViewController {
         let currentFilter = CIFilter(name: "CIGaussianBlur")
         let image = CIImage(image: imageView.image!)
         currentFilter!.setValue(image, forKey: kCIInputImageKey)
-        currentFilter!.setValue(20.0, forKey: kCIInputRadiusKey)
+        currentFilter!.setValue(10.0, forKey: kCIInputRadiusKey)
         guard let filteredImage = currentFilter?.outputImage else { return .init() }
         let outputImage = ciContext.createCGImage(filteredImage, from: filteredImage.extent)
         imageView.image = .init(cgImage: outputImage!)
         return imageView
+    }
+    
+    func makeWachingMachineContentView() -> WashingMachineContentView {
+        let content = WashingMachineContentView()
+        content.translatesAutoresizingMaskIntoConstraints = false
+        return content
+    }
+}
+
+extension ViewController: UIControlDelegate {
+    func timerUpdate(currentTime: Double) {
+        
+    }
+    
+    func resetTimer() {
+        
+    }
+    
+    func startWashingMachine() {
+        
+    }
+    
+    func stopWashingMachine() {
+        
     }
 }
