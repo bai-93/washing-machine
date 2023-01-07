@@ -195,9 +195,8 @@ class WashingMachineContentView: UIView {
     
     func setInitialLocaltionsDirtyClothes() {
         var previousFrame: CGRect = .zero
-        var stepWidth = 12
         var firstFlag = true
-        var radiusWashing = self.washingMachineThirdContainer.bounds.size
+        let radiusWashing = self.washingMachineThirdContainer.bounds.size
         for item in self.ballsClothesStored {
             self.washingMachineThirdContainer.addSubview(item)
             if (firstFlag) {
@@ -206,8 +205,8 @@ class WashingMachineContentView: UIView {
                 previousFrame = item.frame
             } else {
                 previousFrame.origin = .init(x: previousFrame.origin.x + 25.0, y: 25.0)
-                if (previousFrame.origin.x > radiusWashing.width || previousFrame.origin.y > radiusWashing.height) {
-                    previousFrame.origin = .init(x: 30.0, y: 30.0)
+                if (previousFrame.origin.x > radiusWashing.width/2.0 || previousFrame.origin.y > radiusWashing.height/2.0) {
+                    previousFrame.origin = .init(x: radiusWashing.height * 0.25, y: radiusWashing.width * 0.22)
                 }
                 item.frame = previousFrame
             }
@@ -389,6 +388,18 @@ extension WashingMachineContentView {
             imageView.layer.cornerRadius = 12
             imageView.frame.size = .init(width: 24.0, height: 24.0)
             imageView.tag = tagImage
+            
+            
+            let blur = UIBlurEffect(style: .dark)
+            let blurEffectView = UIVisualEffectView(effect: blur)
+            blurEffectView.frame = imageView.bounds
+            blurEffectView.alpha = 1
+            blurEffectView.layer.opacity = 0.5
+            blurEffectView.layer.cornerRadius = 30.0
+            blurEffectView.clipsToBounds = true
+            imageView.addSubview(blurEffectView)
+            imageView.layer.shadowRadius = 10.0
+            
             imageStorageHolder.append(imageView)
         }
         imageStorageHolder.shuffle()
