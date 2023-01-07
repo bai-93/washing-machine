@@ -19,6 +19,8 @@
 		E45E140E291AA3E20005DB3D /* TemperatureSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45E140D291AA3E20005DB3D /* TemperatureSettingsViewController.swift */; };
 		E47869682966B913007018FF /* MainScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E47869672966B913007018FF /* MainScreenViewModel.swift */; };
 		E478696C29672A23007018FF /* WashingMachineContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E478696B29672A23007018FF /* WashingMachineContentView.swift */; };
+		E4875F2529691A6F000B7016 /* ModeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4875F2429691A6F000B7016 /* ModeButtonView.swift */; };
+		E4875F272969371A000B7016 /* ModeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4875F262969371A000B7016 /* ModeButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,8 @@
 		E45E140D291AA3E20005DB3D /* TemperatureSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureSettingsViewController.swift; sourceTree = "<group>"; };
 		E47869672966B913007018FF /* MainScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewModel.swift; sourceTree = "<group>"; };
 		E478696B29672A23007018FF /* WashingMachineContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WashingMachineContentView.swift; sourceTree = "<group>"; };
+		E4875F2429691A6F000B7016 /* ModeButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModeButtonView.swift; sourceTree = "<group>"; };
+		E4875F262969371A000B7016 /* ModeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModeButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +168,8 @@
 			children = (
 				E45E13E0291A912C0005DB3D /* ViewController.swift */,
 				E478696B29672A23007018FF /* WashingMachineContentView.swift */,
+				E4875F2429691A6F000B7016 /* ModeButtonView.swift */,
+				E4875F262969371A000B7016 /* ModeButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -303,7 +309,9 @@
 				E47869682966B913007018FF /* MainScreenViewModel.swift in Sources */,
 				E45E13E1291A912C0005DB3D /* ViewController.swift in Sources */,
 				E45E13DD291A912C0005DB3D /* AppDelegate.swift in Sources */,
+				E4875F272969371A000B7016 /* ModeButton.swift in Sources */,
 				E478696C29672A23007018FF /* WashingMachineContentView.swift in Sources */,
+				E4875F2529691A6F000B7016 /* ModeButtonView.swift in Sources */,
 				E45E13DF291A912C0005DB3D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

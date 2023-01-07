@@ -56,6 +56,8 @@ class ViewController: UIViewController {
 //        self.perform(#selector(self.changeVortexStrengh), with: nil, afterDelay: 6.0)
 //        self.perform(#selector(self.changeImage), with: nil, afterDelay: 15.0)
 //        print("this message after perform")
+        self.contenView.setInitialLocaltionsDirtyClothes()
+        self.contenView.setupBehaviours()
     }
     
     @objc func changeVortexStrengh() {
