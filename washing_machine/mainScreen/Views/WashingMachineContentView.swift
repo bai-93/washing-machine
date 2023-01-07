@@ -229,7 +229,6 @@ class WashingMachineContentView: UIView {
         for item in self.ballsClothesStored {
             self.vortextBehaviour.addItem(item)
         }
-        self.itemBehaviour.elasticity = 0.5
         self.dynamicAnimator.addBehavior(self.vortextBehaviour)
         self.dynamicAnimator.addBehavior(self.itemBehaviour)
         self.dynamicAnimator.addBehavior(self.collisionBehaviour)
@@ -388,19 +387,11 @@ extension WashingMachineContentView {
             imageView.layer.cornerRadius = 12
             imageView.frame.size = .init(width: 24.0, height: 24.0)
             imageView.tag = tagImage
-            
-            
-            let blur = UIBlurEffect(style: .dark)
-            let blurEffectView = UIVisualEffectView(effect: blur)
-            blurEffectView.frame = imageView.bounds
-            blurEffectView.alpha = 1
-            blurEffectView.layer.opacity = 0.2
-            blurEffectView.layer.cornerRadius = 12
-            
-            imageView.addSubview(blurEffectView)
-            imageView.layer.shadowRadius = 10.0
-            blurEffectView.clipsToBounds = true
-            
+            imageView.clipsToBounds = true
+            imageView.layer.shadowColor = UIColor.black.cgColor
+            imageView.layer.shadowRadius = 15.0
+            imageView.layer.shadowOpacity = 1
+            imageView.layer.masksToBounds = false
             imageStorageHolder.append(imageView)
         }
         imageStorageHolder.shuffle()
