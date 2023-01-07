@@ -28,7 +28,7 @@ class ViewController: UIViewController {
     
     @objc func changeVortexStrengh() {
         print("we changed strength")
-        self.contenView.vortextBehaviour.strength = -0.03
+        self.contenView.vortextBehaviour.strength = -0.029 // 0.07
         self.contenView.vortextBehaviour.animationSpeed = 100
     }
     
