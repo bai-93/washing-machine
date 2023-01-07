@@ -33,6 +33,7 @@ class WashingMachineContentView: UIView {
     lazy var washingMachineSecondContainer = self.makeWashingMachineSecondContainer()
     lazy var washingMachineThirdContainer = self.makeWashingMachineThirdContainer()
     lazy var drumPropellerImageView = self.makeDrumPropellerImage()
+    lazy var washingMachineBallSimulationContainer = self.makeWashingMachineThirdContainer()
     
     //MARK: - dirty balls stored properties
     lazy var ballsClothesStored: [UIImageView] = self.makeBallsImageView()
@@ -70,16 +71,21 @@ class WashingMachineContentView: UIView {
         self.indicatorModeParentView.layer.cornerRadius = self.indicatorModeParentView.bounds.width / 2.0
         self.indicatorModeView.layer.cornerRadius = indicatorModeView.bounds.width / 2.0
         
-//        let rotate = CABasicAnimation(keyPath: "transform.rotation.z")
-//        rotate.fromValue = 0
-//        rotate.toValue = -CGFloat.pi * 2
-//        rotate.duration = 1
-//        rotate.repeatCount = 10
-//        self.washingMachineThirdContainer.layer.add(rotate, forKey: nil)
+        self.washingMachineBallSimulationContainer.layer.cornerRadius = self.washingMachineBallSimulationContainer.bounds.width / 2.0
+        self.washingMachineBallSimulationContainer.backgroundColor = .clear
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func startDrumRotation() {
+        let rotate = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotate.fromValue = 0
+        rotate.toValue = -CGFloat.pi * 2
+        rotate.duration = 2
+        rotate.repeatCount = 2
+        self.washingMachineThirdContainer.layer.add(rotate, forKey: nil)
     }
     
     func setupView() {
@@ -99,6 +105,7 @@ class WashingMachineContentView: UIView {
         self.washingMachineFirstContainer.addSubview(self.washingMachineSecondContainer)
         self.washingMachineSecondContainer.addSubview(self.washingMachineThirdContainer)
         self.washingMachineThirdContainer.addSubview(self.drumPropellerImageView)
+        self.addSubview(self.washingMachineBallSimulationContainer)
         
         //left side buttons
         self.addSubview(self.leftSideButtonsStackView)
@@ -165,6 +172,12 @@ class WashingMachineContentView: UIView {
             self.drumPropellerImageView.bottomAnchor.constraint(equalTo: self.washingMachineThirdContainer.bottomAnchor, constant: -33.0)
         ])
         NSLayoutConstraint.activate([
+            self.washingMachineBallSimulationContainer.leadingAnchor.constraint(equalTo: self.washingMachineThirdContainer.leadingAnchor),
+            self.washingMachineBallSimulationContainer.trailingAnchor.constraint(equalTo: self.washingMachineThirdContainer.trailingAnchor),
+            self.washingMachineBallSimulationContainer.topAnchor.constraint(equalTo: self.washingMachineThirdContainer.topAnchor),
+            self.washingMachineBallSimulationContainer.bottomAnchor.constraint(equalTo: self.washingMachineThirdContainer.bottomAnchor)
+        ])
+        NSLayoutConstraint.activate([
             self.indicatorModeContainer.heightAnchor.constraint(equalToConstant: 45.0),
             self.indicatorModeParentView.centerYAnchor.constraint(equalTo: self.indicatorModeContainer.centerYAnchor),
             self.indicatorModeParentView.centerXAnchor.constraint(equalTo: self.indicatorModeContainer.centerXAnchor),
@@ -196,9 +209,9 @@ class WashingMachineContentView: UIView {
     func setInitialLocaltionsDirtyClothes() {
         var previousFrame: CGRect = .zero
         var firstFlag = true
-        let radiusWashing = self.washingMachineThirdContainer.bounds.size
+        let radiusWashing = self.washingMachineBallSimulationContainer.bounds.size
         for item in self.ballsClothesStored {
-            self.washingMachineThirdContainer.addSubview(item)
+            self.washingMachineBallSimulationContainer.addSubview(item)
             if (firstFlag) {
                 firstFlag = false
                 item.frame.origin = .init(x: 30, y: 30)
@@ -214,17 +227,17 @@ class WashingMachineContentView: UIView {
     }
     
     func setupBehaviours() {
-        self.dynamicAnimator = UIDynamicAnimator(referenceView: self.washingMachineThirdContainer)
+        self.dynamicAnimator = UIDynamicAnimator(referenceView: self.washingMachineBallSimulationContainer)
         
         self.collisionBehaviour = UICollisionBehavior(items: self.ballsClothesStored)
-        self.collisionBehaviour.addBoundary(withIdentifier: "identifier" as NSCopying, for: UIBezierPath(ovalIn: self.washingMachineThirdContainer.frame))
+        self.collisionBehaviour.addBoundary(withIdentifier: "identifier" as NSCopying, for: UIBezierPath(ovalIn: self.washingMachineBallSimulationContainer.bounds))
         self.collisionBehaviour.translatesReferenceBoundsIntoBoundary = true
         self.gravityBehaviour = UIGravityBehavior(items: self.ballsClothesStored)
         
         self.vortextBehaviour.position = self.washingMachineThirdContainer.center
         self.vortextBehaviour.animationSpeed = 0.09
         self.vortextBehaviour.strength = 0.0
-        self.vortextBehaviour.region = .init(radius: self.washingMachineThirdContainer.bounds.height/2.0)
+        self.vortextBehaviour.region = .init(radius: self.washingMachineBallSimulationContainer.bounds.height / 2.0)
         
         for item in self.ballsClothesStored {
             self.vortextBehaviour.addItem(item)
@@ -365,7 +378,6 @@ extension WashingMachineContentView {
             var nameOfImage = ""
             var tagImage = 100
             let imageView = UIImageView()
-            let ciContext = CIContext(options: nil)
             switch item {
             case 0..<4:
                 nameOfImage = "Ellipse1"

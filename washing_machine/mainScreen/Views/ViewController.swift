@@ -28,8 +28,9 @@ class ViewController: UIViewController {
     
     @objc func changeVortexStrengh() {
         print("we changed strength")
+        self.contenView.startDrumRotation()
         self.contenView.vortextBehaviour.strength = -0.03 // 0.07
-        self.contenView.vortextBehaviour.animationSpeed = 100
+        self.contenView.vortextBehaviour.animationSpeed = 0.5
     }
     
     @objc func changeImage() {
