@@ -389,7 +389,7 @@ extension WashingMachineContentView {
             imageView.tag = tagImage
             imageView.clipsToBounds = true
             imageView.layer.shadowColor = UIColor.black.cgColor
-            imageView.layer.shadowRadius = 15.0
+            imageView.layer.shadowRadius = 10
             imageView.layer.shadowOpacity = 1
             imageView.layer.masksToBounds = false
             imageStorageHolder.append(imageView)
