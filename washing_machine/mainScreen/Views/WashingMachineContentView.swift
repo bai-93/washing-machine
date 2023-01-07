@@ -394,11 +394,12 @@ extension WashingMachineContentView {
             let blurEffectView = UIVisualEffectView(effect: blur)
             blurEffectView.frame = imageView.bounds
             blurEffectView.alpha = 1
-            blurEffectView.layer.opacity = 0.5
-            blurEffectView.layer.cornerRadius = 30.0
-            blurEffectView.clipsToBounds = true
+            blurEffectView.layer.opacity = 0.2
+            blurEffectView.layer.cornerRadius = 12
+            
             imageView.addSubview(blurEffectView)
             imageView.layer.shadowRadius = 10.0
+            blurEffectView.clipsToBounds = true
             
             imageStorageHolder.append(imageView)
         }
