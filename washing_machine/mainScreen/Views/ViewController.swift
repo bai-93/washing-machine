@@ -46,37 +46,6 @@ class ViewController: UIViewController {
 }
 
 extension ViewController {
-    func makeContainer() -> UIView {
-        let temp = UIView()
-        temp.translatesAutoresizingMaskIntoConstraints = false
-        temp.backgroundColor = .white
-        return temp
-    }
-    
-    func makeVortextView() -> UIView {
-        let temp = UIView()
-        temp.translatesAutoresizingMaskIntoConstraints = false
-        temp.backgroundColor = .yellow
-        return temp
-    }
-    
-    func makeImageView() -> UIImageView {
-        let imageView = UIImageView()
-        let ciContext = CIContext(options: nil)
-        imageView.image = .init(named: "Ellipse2")
-        imageView.contentMode = .scaleAspectFit
-        imageView.layer.cornerRadius = 20.0
-        imageView.frame.size = .init(width: 40.0, height: 40.0)
-        let currentFilter = CIFilter(name: "CIGaussianBlur")
-        let image = CIImage(image: imageView.image!)
-        currentFilter!.setValue(image, forKey: kCIInputImageKey)
-        currentFilter!.setValue(10.0, forKey: kCIInputRadiusKey)
-        guard let filteredImage = currentFilter?.outputImage else { return .init() }
-        let outputImage = ciContext.createCGImage(filteredImage, from: filteredImage.extent)
-        imageView.image = .init(cgImage: outputImage!)
-        return imageView
-    }
-    
     func makeWachingMachineContentView() -> WashingMachineContentView {
         let content = WashingMachineContentView()
         content.translatesAutoresizingMaskIntoConstraints = false
