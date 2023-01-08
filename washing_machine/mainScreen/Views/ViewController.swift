@@ -23,17 +23,17 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
         self.contenView.setInitialLocaltionsDirtyClothes()
         self.contenView.setupBehaviours()
-        self.perform(#selector(self.changeVortexStrengh), with: nil, afterDelay: 5)
+        self.perform(#selector(self.changeVortexStrengh), with: nil, afterDelay: 5.0)
     }
     
     @objc func changeVortexStrengh() {
-        print("we changed strength")
-        self.contenView.startDrumRotation()
-        self.contenView.vortextBehaviour.strength = -0.03 // 0.07
-        self.contenView.vortextBehaviour.animationSpeed = 0.5
+        self.contenView.startDrumAnimation(duration: 2.0, count: 3.0)
+        self.perform(#selector(self.enhanceVortexStrengh), with: nil, afterDelay: 6)
     }
     
-    @objc func changeImage() {
+    @objc func enhanceVortexStrengh() {
+        self.contenView.rotateAnimation(durationRotate: 1, count: 10.0)
+        self.contenView.vortextBehaviour.strength = -0.1
     }
     
     func setupConstraints() {

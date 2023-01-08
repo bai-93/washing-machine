@@ -79,15 +79,6 @@ class WashingMachineContentView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func startDrumRotation() {
-        let rotate = CABasicAnimation(keyPath: "transform.rotation.z")
-        rotate.fromValue = 0
-        rotate.toValue = -CGFloat.pi * 2
-        rotate.duration = 2
-        rotate.repeatCount = 2
-        self.washingMachineThirdContainer.layer.add(rotate, forKey: nil)
-    }
-    
     func setupView() {
         //top views
         self.addSubview(self.settingsButtonLeftTop)
@@ -257,6 +248,21 @@ class WashingMachineContentView: UIView {
         self.leftSideButtonsStackView.distribution = .fill
         self.leftSideButtonsStackView.spacing = 20.0
     }
+    
+    func startDrumAnimation(duration: CGFloat, count: Float = 1) {
+        self.rotateAnimation(durationRotate: duration, count: count)
+        self.vortextBehaviour.strength = -0.018
+        self.vortextBehaviour.animationSpeed = 0.5
+    }
+    
+    func rotateAnimation(durationRotate: CGFloat, count: Float = 1.0) {
+        let rotate = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotate.fromValue = 0
+        rotate.toValue = -CGFloat.pi * 2
+        rotate.duration = durationRotate
+        rotate.repeatCount = count
+        self.washingMachineThirdContainer.layer.add(rotate, forKey: nil)
+    }
 }
 //MARK: - make helper views extension
 extension WashingMachineContentView {
@@ -408,5 +414,11 @@ extension WashingMachineContentView {
         }
         imageStorageHolder.shuffle()
         return imageStorageHolder
+    }
+}
+
+extension UIImageView {
+    override open var collisionBoundsType: UIDynamicItemCollisionBoundsType {
+        return .ellipse
     }
 }
