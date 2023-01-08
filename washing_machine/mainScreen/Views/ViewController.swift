@@ -32,7 +32,7 @@ class ViewController: UIViewController {
     }
     
     @objc func enhanceVortexStrengh() {
-        self.contenView.rotateAnimation(durationRotate: 1, count: 10.0)
+        self.contenView.rotateAnimation(durationRotate: 0.5, count: 20.0)
         self.contenView.vortextBehaviour.strength = -0.1
     }
     

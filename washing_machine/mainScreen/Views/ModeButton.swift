@@ -82,7 +82,7 @@ extension ModeButton {
         let temp = UILabel()
         temp.translatesAutoresizingMaskIntoConstraints = false
         temp.textColor = UIColor(red: 111/255, green: 116/255, blue: 126/255, alpha: 1.0)
-        temp.text = " minutes"
+        temp.text = " seconds"
         temp.font = .boldSystemFont(ofSize: 10.0)
         temp.textAlignment = .left
         return temp
